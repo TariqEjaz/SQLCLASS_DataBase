@@ -4,30 +4,62 @@ FROM EMPLOYEES E INNER JOIN DEPARTMENTS D
 ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
 
 -- 2. write a SQL query to find the first name, last name, department, city, and state province for each employee.
-
-
-
-
+SELECT E.FIRST_NAME,E.LAST_NAME,D.DEPARTMENT_NAME,L.CITY,L.STATE_PROVINCE
+FROM EMPLOYEES E INNER JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID = D.DEPARTMENT_ID INNER JOIN  LOCATIONS L
+ON D.LOCATION_ID = L.LOCATION_ID;
 
 -- 3. write a SQL query to find the first name, last name, salary, and job grade for all employees.
 
+SELECT E.FIRST_NAME, E.LAST_NAME, E.SALARY, J.GRADE
+FROM EMPLOYEES E INNER JOIN JOB_GRADES J
+    ON E.SALARY BETWEEN J.LOWEST_SAL AND J.HIGHEST_SAL ;
 
--- 4. write a SQL query to find all those employees who work in department ID 80 or 40. Return first name, last name, department number and department name.
+-- 4. write a SQL query to find all those employees who work in department ID 80 or 40.
+-- Return first name, last name, department number and department name.
+SELECT FIRST_NAME,LAST_NAME,D.DEPARTMENT_ID,D.DEPARTMENT_NAME
+FROM EMPLOYEES E JOIN DEPARTMENTS D
+ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+WHERE E.DEPARTMENT_ID IN (80,40);
+
+-- 5. write a SQL query to find those employees whose first name contains a letter ‘z’.
+-- Return first name, last name, department, city, and state province.
+SELECT FIRST_NAME,LAST_NAME,DEPARTMENT_NAME,CITY,STATE_PROVINCE
+FROM EMPLOYEES INNER JOIN DEPARTMENTS
+   ON EMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID
+   INNER JOIN LOCATIONS
+ON DEPARTMENTS.LOCATION_ID = LOCATIONS.LOCATION_ID
+WHERE EMPLOYEES.FIRST_NAME LIKE '%z%';
 
 
--- 5. write a SQL query to find those employees whose first name contains a letter ‘z’. Return first name, last name, department, city, and state province.
 
+-- 6. write a SQL query to find all departments including those without any employee.
+-- Return first name, last name, department ID, department name
 
--- 6. write a SQL query to find all departments including those without any employee. Return first name, last name, department ID, department name
-
+SELECT EMPLOYEES.FIRST_NAME,EMPLOYEES.LAST_NAME,DEPARTMENTS.DEPARTMENT_ID,DEPARTMENTS.DEPARTMENT_NAME
+FROM EMPLOYEES RIGHT OUTER JOIN DEPARTMENTS
+ON EMPLOYEES.EMPLOYEE_ID = DEPARTMENTS.MANAGER_ID;
 
 -- 7. write a SQL query to find those employees who earn less than the employee of ID 182. Return first name, last name and salary.
+
+SELECT FIRST_NAME,LAST_NAME,SALARY
+FROM EMPLOYEES
+WHERE SALARY <  (SELECT SALARY FROM EMPLOYEES
+WHERE EMPLOYEE_ID=182);
 
 
 -- 8. write a SQL query to display the department name, city, and state province for each department.
 
+SELECT D.DEPARTMENT_NAME,L.CITY,L.STATE_PROVINCE
+FROM DEPARTMENTS D INNER JOIN LOCATIONS L
+    on D.LOCATION_ID = L.LOCATION_ID;
+
 
 -- 9. write a SQL query to find the employees and their managers. Return the first name of the employee and manager.
+
+SELECT E.FIRST_NAME,D.MANAGER_ID
+FROM EMPLOYEES E INNER JOIN DEPARTMENTS d
+ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
 
 
 -- 10 write a SQL query to find those employees who have or not any department. Return first name, last name, department ID, department name.
@@ -41,6 +73,17 @@ ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
 
 
 -- 13.write a SQL query to find those employees who get higher salary than the employee whose ID is 163. Return first name, last name.
+
+SELECT FIRST_NAME,LAST_NAME,SALARY
+FROM EMPLOYEES
+    WHERE SALARY > (SELECT SALARY
+                    FROM EMPLOYEES
+                    WHERE EMPLOYEE_ID =163);
+
+SELECT SALARY
+FROM EMPLOYEES
+WHERE EMPLOYEE_ID =163;
+
 
 
 
