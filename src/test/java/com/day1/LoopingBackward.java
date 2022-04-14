@@ -21,7 +21,6 @@ public class LoopingBackward {
         rs.afterLast();
 
         while( rs.previous() ) {
-
             System.out.println(rs.getString("EMPLOYEE_ID") + " "
                     + rs.getString("FIRST_NAME"));
 
