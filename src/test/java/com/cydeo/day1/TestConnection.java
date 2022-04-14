@@ -1,4 +1,4 @@
-package com.day1;
+package com.cydeo.day1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

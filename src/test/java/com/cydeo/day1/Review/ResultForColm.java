@@ -1,4 +1,4 @@
-package com.day1.Review;
+package com.cydeo.day1.Review;
 
 import java.sql.*;
 
